@@ -1,0 +1,16 @@
+version: "3.9"
+
+services:
+    zona-profesor:
+        container_name: zona-profesor
+        image: node:14-alpine
+        volumes:
+            - ./:/app:cached
+            - /app/node_modules/
+        working_dir: /app
+        ports: 
+            - 3000:3000
+        networks:
+            - default
+        command: [sh,-c,"npm install && npm start"]
+        tty: true
