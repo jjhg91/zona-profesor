@@ -19,18 +19,7 @@
 const dashboard24HoursPerformanceChart = {
   data: (canvas) => {
     return {
-      labels: [
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
-        "Sep",
-        "Oct",
-      ],
+      labels: ["Diseño", "Matematica", "Lenguaje", "Base de datos", "Sistemas"],
       datasets: [
         {
           borderColor: "#6bd098",
@@ -40,7 +29,7 @@ const dashboard24HoursPerformanceChart = {
           borderWidth: 3,
           tension: 0.4,
           fill: true,
-          data: [300, 310, 316, 322, 330, 326, 333, 345, 338, 354],
+          data: [15, 11, 9, 14, 13],
         },
         {
           borderColor: "#f17e5d",
@@ -50,7 +39,7 @@ const dashboard24HoursPerformanceChart = {
           borderWidth: 3,
           tension: 0.4,
           fill: true,
-          data: [320, 340, 365, 360, 370, 385, 390, 384, 408, 420],
+          data: [15, 11, 9, 14, 13],
         },
         {
           borderColor: "#fcc468",
@@ -60,7 +49,7 @@ const dashboard24HoursPerformanceChart = {
           borderWidth: 3,
           tension: 0.4,
           fill: true,
-          data: [370, 394, 415, 409, 425, 445, 460, 450, 478, 484],
+          data: [15, 11, 9, 14, 13],
         },
       ],
     };
@@ -106,9 +95,9 @@ const dashboardEmailStatisticsChart = {
           label: "Emails",
           pointRadius: 0,
           pointHoverRadius: 0,
-          backgroundColor: ["#e3e3e3", "#4acccd", "#fcc468", "#ef8157"],
+          backgroundColor: ["#4acccd", "#ef8157"],
           borderWidth: 0,
-          data: [342, 480, 530, 120],
+          data: [10, 3],
         },
       ],
     };

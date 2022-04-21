@@ -41,7 +41,7 @@ function Dashboard() {
     <>
       <div className="content">
         <Row>
-          <Col lg="3" md="6" sm="6">
+          <Col lg="4" md="6" sm="6">
             <Card className="card-stats">
               <CardBody>
                 <Row>
@@ -52,22 +52,16 @@ function Dashboard() {
                   </Col>
                   <Col md="8" xs="7">
                     <div className="numbers">
-                      <p className="card-category">Capacity</p>
-                      <CardTitle tag="p">150GB</CardTitle>
+                      <p className="card-category">Materias Asignadas</p>
+                      <CardTitle tag="p">5</CardTitle>
                       <p />
                     </div>
                   </Col>
                 </Row>
               </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">
-                  <i className="fas fa-sync-alt" /> Update Now
-                </div>
-              </CardFooter>
             </Card>
           </Col>
-          <Col lg="3" md="6" sm="6">
+          <Col lg="4" md="6" sm="6">
             <Card className="card-stats">
               <CardBody>
                 <Row>
@@ -78,22 +72,16 @@ function Dashboard() {
                   </Col>
                   <Col md="8" xs="7">
                     <div className="numbers">
-                      <p className="card-category">Revenue</p>
-                      <CardTitle tag="p">$ 1,345</CardTitle>
+                      <p className="card-category">Planes de evaluacion</p>
+                      <CardTitle tag="p">4</CardTitle>
                       <p />
                     </div>
                   </Col>
                 </Row>
               </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">
-                  <i className="far fa-calendar" /> Last day
-                </div>
-              </CardFooter>
             </Card>
           </Col>
-          <Col lg="3" md="6" sm="6">
+          <Col lg="4" md="6" sm="6">
             <Card className="card-stats">
               <CardBody>
                 <Row>
@@ -104,45 +92,32 @@ function Dashboard() {
                   </Col>
                   <Col md="8" xs="7">
                     <div className="numbers">
-                      <p className="card-category">Errors</p>
-                      <CardTitle tag="p">23</CardTitle>
+                      <p className="card-category">Alumnos</p>
+                      <CardTitle tag="p">30</CardTitle>
                       <p />
                     </div>
                   </Col>
                 </Row>
               </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">
-                  <i className="far fa-clock" /> In the last hour
-                </div>
-              </CardFooter>
             </Card>
           </Col>
-          <Col lg="3" md="6" sm="6">
+        </Row>
+        <Row>
+          <Col lg="12" md="12" sm="12">
             <Card className="card-stats">
               <CardBody>
                 <Row>
-                  <Col md="4" xs="5">
-                    <div className="icon-big text-center icon-warning">
-                      <i className="nc-icon nc-favourite-28 text-primary" />
-                    </div>
-                  </Col>
-                  <Col md="8" xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Followers</p>
-                      <CardTitle tag="p">+45K</CardTitle>
+                  <Col md="12" xs="12">
+                    <div className="numbers text-center">
+                      <p className="card-category">
+                        Fecha limite de carga de notas
+                      </p>
+                      <CardTitle tag="p">30 - 04 - 2022</CardTitle>
                       <p />
                     </div>
                   </Col>
                 </Row>
               </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">
-                  <i className="fas fa-sync-alt" /> Update now
-                </div>
-              </CardFooter>
             </Card>
           </Col>
         </Row>
@@ -150,8 +125,7 @@ function Dashboard() {
           <Col md="12">
             <Card>
               <CardHeader>
-                <CardTitle tag="h5">Users Behavior</CardTitle>
-                <p className="card-category">24 Hours performance</p>
+                <CardTitle tag="h5">Estadisticas de Materias</CardTitle>
               </CardHeader>
               <CardBody>
                 <Line
@@ -161,21 +135,14 @@ function Dashboard() {
                   height={100}
                 />
               </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">
-                  <i className="fa fa-history" /> Updated 3 minutes ago
-                </div>
-              </CardFooter>
             </Card>
           </Col>
         </Row>
         <Row>
-          <Col md="4">
+          <Col md="12">
             <Card>
               <CardHeader>
-                <CardTitle tag="h5">Email Statistics</CardTitle>
-                <p className="card-category">Last Campaign Performance</p>
+                <CardTitle tag="h5">Estadistica de alumnos</CardTitle>
               </CardHeader>
               <CardBody style={{ height: "266px" }}>
                 <Pie
@@ -185,41 +152,10 @@ function Dashboard() {
               </CardBody>
               <CardFooter>
                 <div className="legend">
-                  <i className="fa fa-circle text-primary" /> Opened{" "}
-                  <i className="fa fa-circle text-warning" /> Read{" "}
-                  <i className="fa fa-circle text-danger" /> Deleted{" "}
-                  <i className="fa fa-circle text-gray" /> Unopened
+                  <i className="fa fa-circle text-primary" /> Aprobados{" "}
+                  <i className="fa fa-circle text-danger" /> Reprobados{" "}
                 </div>
                 <hr />
-                <div className="stats">
-                  <i className="fa fa-calendar" /> Number of emails sent
-                </div>
-              </CardFooter>
-            </Card>
-          </Col>
-          <Col md="8">
-            <Card className="card-chart">
-              <CardHeader>
-                <CardTitle tag="h5">NASDAQ: AAPL</CardTitle>
-                <p className="card-category">Line Chart with Points</p>
-              </CardHeader>
-              <CardBody>
-                <Line
-                  data={dashboardNASDAQChart.data}
-                  options={dashboardNASDAQChart.options}
-                  width={400}
-                  height={100}
-                />
-              </CardBody>
-              <CardFooter>
-                <div className="chart-legend">
-                  <i className="fa fa-circle text-info" /> Tesla Model S{" "}
-                  <i className="fa fa-circle text-warning" /> BMW 5 Series
-                </div>
-                <hr />
-                <div className="card-stats">
-                  <i className="fa fa-check" /> Data information certified
-                </div>
               </CardFooter>
             </Card>
           </Col>

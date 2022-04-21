@@ -62,7 +62,8 @@ function Dashboard(props) {
       <Sidebar
         {...props}
         routes={routes}
-        bgColor={backgroundColor}
+        // bgColor={backgroundColor}
+        bgColor="white"
         activeColor={activeColor}
       />
       <div className="main-panel" ref={mainPanel}>
@@ -80,12 +81,12 @@ function Dashboard(props) {
         </Switch>
         <Footer fluid />
       </div>
-      <FixedPlugin
+      {/* <FixedPlugin
         bgColor={backgroundColor}
         activeColor={activeColor}
         handleActiveClick={handleActiveClick}
         handleBgClick={handleBgClick}
-      />
+      /> */}
     </div>
   );
 }
