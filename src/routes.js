@@ -41,10 +41,10 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/icons",
+    path: "/tables",
     name: "Materias",
     icon: "nc-icon nc-diamond",
-    component: Icons,
+    component: TableList,
     layout: "/admin",
   },
 ];
