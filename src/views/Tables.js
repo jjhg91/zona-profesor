@@ -28,7 +28,7 @@ import {
   Row,
   Col,
 } from "reactstrap";
-
+import ButtonMateria from "components/Materias/ButtonMateria";
 function Tables() {
   return (
     <>
@@ -40,51 +40,61 @@ function Tables() {
                 <CardTitle tag="h4">Materias Asignadas</CardTitle>
               </CardHeader>
               <CardBody>
-                <Table responsive>
+                <Table responsive className="table-hover table-striped">
                   <thead className="text-primary">
                     <tr>
                       <th>Especialdiad</th>
-                      <th>Turno</th>
                       <th>Materia</th>
-                      <th>cod</th>
+                      <th>Turno</th>
                       <th>Periodo</th>
+                      <th></th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>Informatica</td>
-                      <td>Sabado</td>
                       <td>Base de Datos</td>
-                      <td>inf-bdd445</td>
-                      <td>2022-2</td>
-                    </tr>
-                    <tr>
-                      <td>Informatica</td>
                       <td>Sabado</td>
-                      <td>Lenguaje de Programacion</td>
-                      <td>inf-bdd445</td>
                       <td>2022-2</td>
+                      <td>
+                        <ButtonMateria />
+                      </td>
                     </tr>
                     <tr>
                       <td>Informatica</td>
-                      <td>Mañana</td>
-                      <td>Logica</td>
-                      <td>inf-bdd445</td>
+                      <td>Lenguaje de Programacion</td>
+                      <td>Sabado</td>
                       <td>2022-2</td>
+                      <td>
+                        <ButtonMateria />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Informatica</td>
+                      <td>Logica</td>
+                      <td>Mañana</td>
+                      <td>2022-2</td>
+                      <td>
+                        <ButtonMateria />
+                      </td>
                     </tr>
                     <tr>
                       <td>Administracion de Personal</td>
-                      <td>Sabado</td>
                       <td>Derecho</td>
-                      <td>inf-bdd445</td>
+                      <td>Sabado</td>
                       <td>2022-2</td>
+                      <td>
+                        <ButtonMateria />
+                      </td>
                     </tr>
                     <tr>
                       <td>Informatica</td>
-                      <td>Sabado</td>
                       <td>Programacion</td>
-                      <td>inf-bdd445</td>
+                      <td>Sabado</td>
                       <td>2022-2</td>
+                      <td>
+                        <ButtonMateria />
+                      </td>
                     </tr>
                   </tbody>
                 </Table>
