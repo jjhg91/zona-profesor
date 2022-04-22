@@ -27,25 +27,36 @@ import UpgradeToPro from "views/Upgrade.js";
 
 var routes = [
   {
-    path: "/dashboard",
+    path: "/inicio",
     name: "Inicio",
     icon: "nc-icon nc-bank",
     component: Dashboard,
     layout: "/admin",
+    visible: true,
   },
   {
-    path: "/user-page",
+    path: "/usuario",
     name: "Perfil de Usuario",
     icon: "nc-icon nc-single-02",
     component: UserPage,
     layout: "/admin",
+    visible: true,
   },
   {
-    path: "/tables",
+    path: "/materias",
     name: "Materias",
-    icon: "nc-icon nc-diamond",
+    icon: "nc-icon nc-book-bookmark",
     component: TableList,
     layout: "/admin",
+    visible: true,
+  },
+  {
+    path: "/materia",
+    name: "Materia",
+    icon: "nc-icon nc-book-bookmark",
+    component: Icons,
+    layout: "/admin",
+    visible: false,
   },
 ];
 export default routes;

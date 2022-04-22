@@ -58,7 +58,10 @@ function Header(props) {
   const getBrand = () => {
     let brandName = "Default Brand";
     routes.map((prop, key) => {
-      if (window.location.href.indexOf(prop.layout + prop.path) !== -1) {
+      // if (window.location.href.indexOf(prop.layout + prop.path) !== -1) {
+      //   brandName = prop.name;
+      // }
+      if (window.location.pathname === prop.layout + prop.path) {
         brandName = prop.name;
       }
       return null;
@@ -120,7 +123,7 @@ function Header(props) {
               <span className="navbar-toggler-bar bar3" />
             </button>
           </div>
-          <NavbarBrand href="/">{getBrand()}</NavbarBrand>
+          <NavbarBrand href="/">Zona de Profesor / {getBrand()}</NavbarBrand>
         </div>
         <NavbarToggler onClick={toggle}>
           <span className="navbar-toggler-bar navbar-kebab" />
@@ -138,7 +141,11 @@ function Header(props) {
               </InputGroupAddon>
             </InputGroup>
           </form> */}
+
           <Nav navbar>
+            <NavbarBrand>
+              <small>Rafael R.</small>
+            </NavbarBrand>
             {/* <NavItem>
               <Link to="#pablo" className="nav-link btn-magnify">
                 <i className="nc-icon nc-layout-11" />

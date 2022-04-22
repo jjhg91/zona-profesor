@@ -28,6 +28,8 @@ import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
 
+// AQUI
+import Icons from "views/Icons.js";
 var ps;
 
 function Dashboard(props) {
@@ -75,6 +77,7 @@ function Dashboard(props) {
                 path={prop.layout + prop.path}
                 component={prop.component}
                 key={key}
+                exact
               />
             );
           })}
