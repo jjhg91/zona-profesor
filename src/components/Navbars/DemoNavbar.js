@@ -16,29 +16,28 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import useUser from "hooks/useUser";
+import React, { useEffect } from "react";
+import { useLocation, useHistory } from "react-router-dom";
 import {
   Collapse,
   Navbar,
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
   Dropdown,
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
   Container,
-  InputGroup,
-  InputGroupText,
-  InputGroupAddon,
-  Input,
 } from "reactstrap";
 
 import routes from "routes.js";
 
 function Header(props) {
+  let history = useHistory();
+  const { logout, isLogged, jwt } = useUser();
+
   const [isOpen, setIsOpen] = React.useState(false);
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
   const [color, setColor] = React.useState("transparent");
@@ -92,6 +91,17 @@ function Header(props) {
       sidebarToggle.current.classList.toggle("toggled");
     }
   }, [location]);
+
+  const singOut = (e) => {
+    if (isLogged) {
+      logout();
+    }
+  };
+  useEffect(() => {
+    if (!isLogged) {
+      history.push("/auth/login");
+    }
+  }, [isLogged, jwt]);
   return (
     // add or remove classes depending if we are on full-screen-maps page or not
     <Navbar
@@ -144,7 +154,7 @@ function Header(props) {
 
           <Nav navbar>
             <NavbarBrand>
-              <small>Rafael R.</small>
+              <small>Profesor/Profesora</small>
             </NavbarBrand>
             {/* <NavItem>
               <Link to="#pablo" className="nav-link btn-magnify">
@@ -166,10 +176,11 @@ function Header(props) {
                 </p>
               </DropdownToggle>
               <DropdownMenu right>
-                <DropdownItem tag="a">
+                <DropdownItem tag="a" onClick={(e) => singOut(e)}>
                   <i className="nc-icon nc-button-power" />
                   <p className="ml-3">Salir</p>
                 </DropdownItem>
+
                 {/* <DropdownItem tag="a">Another Action</DropdownItem>
                 <DropdownItem tag="a">Something else here</DropdownItem> */}
               </DropdownMenu>

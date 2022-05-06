@@ -3,9 +3,13 @@ import { useHistory } from "react-router-dom";
 
 const ButtonMateria = (props) => {
   const history = useHistory();
+  const codEspecialidad = props.materia.codEspecialidad;
+  const codMateria = props.materia.codMateria;
+  const codTurno = props.materia.turno;
+  const periodo = props.materia.periodo;
 
   const routeChange = () => {
-    let path = `materia`;
+    let path = `materia/${codEspecialidad}/${codMateria}/${codTurno}/${periodo}`;
     history.push(path);
   };
 

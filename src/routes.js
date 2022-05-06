@@ -17,13 +17,11 @@
 
 */
 import Dashboard from "views/Dashboard.js";
-import Notifications from "views/Notifications.js";
 import Icons from "views/Icons.js";
-import Typography from "views/Typography.js";
 import TableList from "views/Tables.js";
-import Maps from "views/Map.js";
 import UserPage from "views/User.js";
-import UpgradeToPro from "views/Upgrade.js";
+
+import Login from "views/Login";
 
 var routes = [
   {
@@ -51,12 +49,24 @@ var routes = [
     visible: true,
   },
   {
-    path: "/materia",
+    path: "/materia/:codEspecialidad/:codMateria/:codTurno/:periodo",
     name: "Materia",
     icon: "nc-icon nc-book-bookmark",
     component: Icons,
     layout: "/admin",
     visible: false,
+  },
+
+  /**
+   * ROUTE LOGIN WITHOUT AUTHORICE
+   */
+  {
+    path: "/login",
+    name: "Login",
+    icon: "ni ni-key-25 text-info",
+    component: Login,
+    layout: "/auth",
+    nav: true,
   },
 ];
 export default routes;

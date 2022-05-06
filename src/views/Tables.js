@@ -16,7 +16,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import React from "react";
+import React, { useState, useEffect } from "react";
+import * as Axios from "axios";
 
 // reactstrap components
 import {
@@ -29,7 +30,27 @@ import {
   Col,
 } from "reactstrap";
 import ButtonMateria from "components/Materias/ButtonMateria";
+import useUser from "hooks/useUser";
+
 function Tables() {
+  const { jwt } = useUser();
+  const [materias, setMaterias] = useState();
+
+  const getMaterias = async () => {
+    const url = "http://localhost:5000/api/materia/";
+    await Axios.get(url, {
+      headers: {
+        Authorization: jwt,
+      },
+    }).then((res) => {
+      setMaterias(res.data);
+    });
+  };
+
+  useEffect(() => {
+    getMaterias();
+  }, []);
+
   return (
     <>
       <div className="content">
@@ -51,51 +72,21 @@ function Tables() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Informatica</td>
-                      <td>Base de Datos</td>
-                      <td>Sabado</td>
-                      <td>2022-2</td>
-                      <td>
-                        <ButtonMateria />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Informatica</td>
-                      <td>Lenguaje de Programacion</td>
-                      <td>Sabado</td>
-                      <td>2022-2</td>
-                      <td>
-                        <ButtonMateria />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Informatica</td>
-                      <td>Logica</td>
-                      <td>Mañana</td>
-                      <td>2022-2</td>
-                      <td>
-                        <ButtonMateria />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Administracion de Personal</td>
-                      <td>Derecho</td>
-                      <td>Sabado</td>
-                      <td>2022-2</td>
-                      <td>
-                        <ButtonMateria />
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>Informatica</td>
-                      <td>Programacion</td>
-                      <td>Sabado</td>
-                      <td>2022-2</td>
-                      <td>
-                        <ButtonMateria />
-                      </td>
-                    </tr>
+                    {!materias
+                      ? ""
+                      : materias.map((materia, index) => {
+                          return (
+                            <tr key={index}>
+                              <td>{materia.especialidad}</td>
+                              <td>{materia.nombre}</td>
+                              <td>{materia.turno}</td>
+                              <td>{materia.periodo}</td>
+                              <td>
+                                <ButtonMateria materia={materia} />
+                              </td>
+                            </tr>
+                          );
+                        })}
                   </tbody>
                 </Table>
               </CardBody>

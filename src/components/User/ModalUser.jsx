@@ -1,11 +1,6 @@
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
   Row,
   Col,
-  Table,
   Button,
   Modal,
   ModalHeader,
@@ -13,12 +8,10 @@ import {
   ModalFooter,
   Form,
   FormGroup,
-  Label,
   Input,
-  FormText,
 } from "reactstrap";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const ModalUser = (props) => {
   const [modal, setModal] = useState(false);

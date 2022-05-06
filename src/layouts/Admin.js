@@ -19,17 +19,16 @@
 import React from "react";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch, useLocation, Redirect } from "react-router-dom";
 
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
-import FixedPlugin from "components/FixedPlugin/FixedPlugin.js";
 
 import routes from "routes.js";
 
 // AQUI
-import Icons from "views/Icons.js";
+import useUser from "hooks/useUser";
 var ps;
 
 function Dashboard(props) {
@@ -37,6 +36,9 @@ function Dashboard(props) {
   const [activeColor, setActiveColor] = React.useState("info");
   const mainPanel = React.useRef();
   const location = useLocation();
+
+  const { isLogged } = useUser();
+
   React.useEffect(() => {
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(mainPanel.current);
@@ -78,9 +80,23 @@ function Dashboard(props) {
                 component={prop.component}
                 key={key}
                 exact
-              />
+              >
+                {
+                  !isLogged ? <Redirect to="/auth/login" /> : ""
+                  // <Redirect to="/auth/login" />
+                }
+                {/* <Redirect to="/aqui" /> */}
+              </Route>
+
+              // <Route
+              //   path={prop.layout + prop.path}
+              //   component={prop.component}
+              //   key={key}
+              //   exact
+              // />
             );
           })}
+          <Redirect from="*" to="/admin/inicio" />
         </Switch>
         <Footer fluid />
       </div>

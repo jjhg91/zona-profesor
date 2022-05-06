@@ -1,11 +1,4 @@
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  Row,
-  Col,
-  Table,
   Button,
   Modal,
   ModalHeader,
@@ -17,13 +10,108 @@ import {
   FormText,
 } from "reactstrap";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import * as Axios from "axios";
+import useUser from "hooks/useUser";
 
 const ModalPlanForm = (props) => {
+  const { jwt } = useUser();
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
   const title = props.title;
   const edit = props.edit;
+  const materia = props.materia;
+  const getMateria = props.getMateria;
+  const ponderacionTotal = props.ponderacionTotal;
+  const [ponderacionOriginal, setPonderacionOriginal] = useState();
+  const [plan, setPlan] = useState({
+    id: "",
+    especialidad: "",
+    materia: "",
+    turno: "",
+    id_actividad: "",
+    contenido: "",
+    actividad: "",
+    quien: "",
+    cuando: "",
+    periodo: "",
+    ponderacion: "",
+  });
+
+  const handle = (e) => {
+    const newPlan = { ...plan };
+    if (e.target.id === "ponderacion") {
+      if (edit === true) {
+        var restante =
+          ponderacionTotal + 30 >= 100
+            ? 100 - ponderacionTotal + ponderacionOriginal
+            : 30;
+      } else {
+        var restante =
+          ponderacionTotal + 30 >= 100 ? 100 - ponderacionTotal : 30;
+      }
+      newPlan[e.target.id] =
+        e.target.value > restante
+          ? restante
+          : e.target.value < 0
+          ? 5
+          : e.target.value;
+    } else {
+      newPlan[e.target.id] = e.target.value;
+    }
+    setPlan(newPlan);
+  };
+
+  const submit = (e) => {
+    e.preventDefault();
+    if (edit === true) {
+      const url = `http://localhost:5000/api/plan-evaluacion/${props.plan.id}`;
+      Axios.put(
+        url,
+        { materia: materia, plan: plan },
+        {
+          headers: {
+            Authorization: jwt,
+          },
+        }
+      ).then((res) => {
+        getMateria();
+      });
+    }
+    if (edit === false) {
+      const url = `http://localhost:5000/api/plan-evaluacion/`;
+      Axios.post(
+        url,
+        { materia: materia, plan: plan },
+        {
+          headers: {
+            Authorization: jwt,
+          },
+        }
+      ).then((res) => {
+        getMateria();
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (edit === true) {
+      setPlan({
+        id: "" + props.plan.id,
+        especialidad: "" + props.plan.especialidad,
+        materia: "" + props.plan.materia,
+        turno: "" + props.plan.turno,
+        id_actividad: "" + props.plan.id_actividad,
+        contenido: "" + props.plan.contenido,
+        actividad: "" + props.plan.actividad,
+        quien: "" + props.plan.quien,
+        cuando: "" + props.plan.cuando,
+        periodo: "" + props.plan.periodo,
+        ponderacion: "" + props.plan.ponderacion,
+      });
+      setPonderacionOriginal(parseInt(props.plan.ponderacion));
+    }
+  }, []);
 
   return (
     <>
@@ -36,7 +124,21 @@ const ModalPlanForm = (props) => {
           {edit === false ? title : "Editar Actividad"}
         </ModalHeader>
         <ModalBody>
-          <form>
+          <form onSubmit={(e) => submit(e)} id="planForm">
+            <FormGroup>
+              <Label for="exampleEmail">N° de Actividad</Label>
+              <Input
+                type="number"
+                name="id_actividad"
+                id="id_actividad"
+                placeholder=""
+                value={plan.id_actividad}
+                onChange={(e) => handle(e)}
+              />
+              <FormText color="muted">
+                Este campo no puede estar vacio <small>(carac. 100 max)</small>
+              </FormText>
+            </FormGroup>
             <FormGroup>
               <Label for="exampleEmail">Contenido</Label>
               <Input
@@ -44,6 +146,8 @@ const ModalPlanForm = (props) => {
                 name="contenido"
                 id="contenido"
                 placeholder="Descipcion del contenido"
+                value={plan.contenido}
+                onChange={(e) => handle(e)}
               />
               <FormText color="muted">
                 Este campo no puede estar vacio <small>(carac. 100 max)</small>
@@ -56,6 +160,8 @@ const ModalPlanForm = (props) => {
                 name="actividad"
                 id="actividad"
                 placeholder="Actividad"
+                value={plan.actividad}
+                onChange={(e) => handle(e)}
               />
               <FormText color="muted">
                 Este campo no puede estar vacio <small>(carac. 100 max)</small>
@@ -65,12 +171,17 @@ const ModalPlanForm = (props) => {
               <Label for="exampleEmail">Ponderacion (%)</Label>
               <Input
                 type="number"
-                name="contenido"
-                id="contenido"
+                name="ponderacion"
+                id="ponderacion"
                 placeholder="0"
+                min="5"
+                max="30"
+                value={parseInt(plan.ponderacion)}
+                onChange={(e) => handle(e)}
               />
               <FormText color="muted">
-                Este campo no puede estar vacio <small>(carac. 100 max)</small>
+                Este campo no puede estar vacio, minimo 5%, maximo 30% (
+                {ponderacionTotal}% de 100%)
               </FormText>
             </FormGroup>
           </form>
@@ -79,7 +190,7 @@ const ModalPlanForm = (props) => {
           <Button
             color="success"
             onClick={toggle}
-            form="productForm"
+            form="planForm"
             type="submit"
           >
             Guardar

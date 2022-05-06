@@ -1,28 +1,30 @@
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardTitle,
-  Row,
-  Col,
-  Table,
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  FormGroup,
-  Label,
-  Input,
-  FormText,
-} from "reactstrap";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import * as Axios from "axios";
+
+import useUser from "hooks/useUser";
 
 const ModalPlanDelete = (props) => {
+  const { jwt } = useUser();
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
+  const plan = props.plan;
+  const materia = props.materia;
+  const getMateria = props.getMateria;
 
+  const onDelete = (e) => {
+    const url = `http://localhost:5000/api/plan-evaluacion/`;
+    Axios.delete(url, {
+      headers: {
+        Authorization: jwt,
+      },
+      data: { materia: materia, plan: plan },
+    }).then((res) => {
+      getMateria();
+      setModal(!modal);
+    });
+  };
   return (
     <>
       <Button color="danger" size="sm" className="mr-1" onClick={toggle}>
@@ -38,9 +40,9 @@ const ModalPlanDelete = (props) => {
         <ModalFooter>
           <Button
             color="success"
-            onClick={toggle}
-            form="productForm"
-            type="submit"
+            onClick={(e) => {
+              onDelete(e);
+            }}
           >
             Eliminar
           </Button>

@@ -112,7 +112,7 @@ function Dashboard() {
                       <p className="card-category">
                         Fecha limite de carga de notas
                       </p>
-                      <CardTitle tag="p">30 - 04 - 2022</CardTitle>
+                      <CardTitle tag="p">?? - ?? - 2022</CardTitle>
                       <p />
                     </div>
                   </Col>
