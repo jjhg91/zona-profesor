@@ -65,7 +65,7 @@ const ModalPlanForm = (props) => {
   const submit = (e) => {
     e.preventDefault();
     if (edit === true) {
-      const url = `http://localhost:5000/api/plan-evaluacion/${props.plan.id}`;
+      const url = `http://apizp.iutjmc.com.ve/api/plan-evaluacion/${props.plan.id}`;
       Axios.put(
         url,
         { materia: materia, plan: plan },
@@ -79,7 +79,7 @@ const ModalPlanForm = (props) => {
       });
     }
     if (edit === false) {
-      const url = `http://localhost:5000/api/plan-evaluacion/`;
+      const url = `http://apizp.iutjmc.com.ve/api/plan-evaluacion/`;
       Axios.post(
         url,
         { materia: materia, plan: plan },

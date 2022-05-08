@@ -37,7 +37,7 @@ function Tables() {
   const [materias, setMaterias] = useState();
 
   const getMaterias = async () => {
-    const url = "http://localhost:5000/api/materia/";
+    const url = "http://apizp.iutjmc.com.ve/api/materia/";
     await Axios.get(url, {
       headers: {
         Authorization: jwt,

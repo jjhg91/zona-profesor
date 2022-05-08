@@ -29,7 +29,7 @@ function User() {
   const [user, setUser] = useState();
 
   const getUser = async () => {
-    const url = "http://localhost:5000/api/profesor/";
+    const url = "http://apizp.iutjmc.com.ve/api/profesor/";
     await Axios.get(url, {
       headers: {
         Authorization: jwt,

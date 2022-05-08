@@ -73,9 +73,8 @@ const Auth = (props) => {
                 <Col lg="5" md="6">
                   <h1 className="text-white">Bienvenido!</h1>
                   <p className="text-lead text-light">
-                    Este es el nuevo sistema para gestion de procesos del area
-                    de cobranza y facturacion para las entidades educativas,
-                    inicie secion para continuar.
+                    Este es el nuevo sistema para gestion de procesos del docente referente al area academica del periodo en curso pudiendo gestionar tanto las actividades de los planes de evaluacion de las distintas materias asignadas, como las notas de los estudiantes en dichos curso.<br/>
+                    
                   </p>
                 </Col>
               </Row>

@@ -45,7 +45,7 @@ function Icons() {
   const [ponderacionTotal, setPonderacionTotal] = useState(0);
 
   const getMateria = async () => {
-    const url = `http://localhost:5000/api/materia/${codEspecialidad}/${codMateria}/${codTurno}/${periodo}`;
+    const url = `http://apizp.iutjmc.com.ve/api/materia/${codEspecialidad}/${codMateria}/${codTurno}/${periodo}`;
     await Axios.get(url, {
       headers: {
         Authorization: jwt,

@@ -8,9 +8,14 @@ services:
             - ./:/app:cached
             - /app/node_modules/
         working_dir: /app
-        ports: 
-            - 3000:3000
-        networks:
-            - default
+        expose: 
+            - 80
+        environment:
+            - VIRTUAL_HOST=zonaprofesor.iutjmc.com.ve
         command: [sh,-c,"npm install && npm start"]
         tty: true
+
+
+networks: 
+  default:
+      name: nuevo_default 

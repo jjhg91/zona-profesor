@@ -14,7 +14,7 @@ const ModalPlanDelete = (props) => {
   const getMateria = props.getMateria;
 
   const onDelete = (e) => {
-    const url = `http://localhost:5000/api/plan-evaluacion/`;
+    const url = `http://apizp.iutjmc.com.ve/api/plan-evaluacion/`;
     Axios.delete(url, {
       headers: {
         Authorization: jwt,

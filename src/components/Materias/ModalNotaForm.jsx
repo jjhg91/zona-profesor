@@ -87,7 +87,7 @@ const ModalNotaForm = (props) => {
   const submit = (e) => {
     e.preventDefault();
     if (edit === true) {
-      const url = `http://localhost:5000/api/nota/`;
+      const url = `http://apizp.iutjmc.com.ve/api/nota/`;
       Axios.put(
         url,
         {
@@ -105,7 +105,7 @@ const ModalNotaForm = (props) => {
       });
     }
     if (edit === false) {
-      const url = `http://localhost:5000/api/nota/`;
+      const url = `http://apizp.iutjmc.com.ve/api/nota/`;
       Axios.post(
         url,
         {
