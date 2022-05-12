@@ -12,18 +12,25 @@ const ModalPlanDelete = (props) => {
   const plan = props.plan;
   const materia = props.materia;
   const getMateria = props.getMateria;
+  const [disabledButton, setDisabledButton] = useState(false);
 
   const onDelete = (e) => {
-    const url = `http://apizp.iutjmc.com.ve/api/plan-evaluacion/`;
+    setDisabledButton(true);
+    const url = `${process.env.REACT_APP_API_URL}/plan-evaluacion/`;
     Axios.delete(url, {
       headers: {
         Authorization: jwt,
       },
       data: { materia: materia, plan: plan },
-    }).then((res) => {
-      getMateria();
-      setModal(!modal);
-    });
+    })
+      .then((res) => {
+        getMateria();
+        toggle();
+        setDisabledButton(false);
+      })
+      .catch((err) => {
+        setDisabledButton(false);
+      });
   };
   return (
     <>
@@ -40,6 +47,7 @@ const ModalPlanDelete = (props) => {
         <ModalFooter>
           <Button
             color="success"
+            disabled={disabledButton}
             onClick={(e) => {
               onDelete(e);
             }}

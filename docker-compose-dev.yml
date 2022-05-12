@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  zona-profesor:
+    container_name: zona-profesor
+    image: node:14-alpine
+    volumes:
+      - ./:/app:cached
+      - /app/node_modules/
+    working_dir: /app
+    ports:
+      - 3000:80
+    #expose:
+    #    - 80
+    #environment:
+    #    - VIRTUAL_HOST=zonaprofesor.iutjmc.com.ve
+    command: [sh, -c, "npm install && npm start"]
+    tty: true
+
+networks:
+  default:
+    name: nuevo_default

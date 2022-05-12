@@ -17,13 +17,13 @@ import useUser from "hooks/useUser";
 const ModalPlanForm = (props) => {
   const { jwt } = useUser();
   const [modal, setModal] = useState(false);
-  const toggle = () => setModal(!modal);
   const title = props.title;
   const edit = props.edit;
   const materia = props.materia;
   const getMateria = props.getMateria;
   const ponderacionTotal = props.ponderacionTotal;
   const [ponderacionOriginal, setPonderacionOriginal] = useState();
+  const [disabledButton, setDisabledButton] = useState(false);
   const [plan, setPlan] = useState({
     id: "",
     especialidad: "",
@@ -38,6 +38,24 @@ const ModalPlanForm = (props) => {
     ponderacion: "",
   });
 
+  const toggle = () => {
+    setModal(!modal);
+    if (edit == false) {
+      setPlan({
+        id: "",
+        especialidad: "",
+        materia: "",
+        turno: "",
+        id_actividad: "",
+        contenido: "",
+        actividad: "",
+        quien: "",
+        cuando: "",
+        periodo: "",
+        ponderacion: "",
+      });
+    }
+  };
   const handle = (e) => {
     const newPlan = { ...plan };
     if (e.target.id === "ponderacion") {
@@ -63,9 +81,10 @@ const ModalPlanForm = (props) => {
   };
 
   const submit = (e) => {
+    setDisabledButton(true);
     e.preventDefault();
     if (edit === true) {
-      const url = `http://apizp.iutjmc.com.ve/api/plan-evaluacion/${props.plan.id}`;
+      const url = `${process.env.REACT_APP_API_URL}/plan-evaluacion/${props.plan.id}`;
       Axios.put(
         url,
         { materia: materia, plan: plan },
@@ -74,12 +93,18 @@ const ModalPlanForm = (props) => {
             Authorization: jwt,
           },
         }
-      ).then((res) => {
-        getMateria();
-      });
+      )
+        .then((res) => {
+          setDisabledButton(false);
+          getMateria();
+          toggle();
+        })
+        .catch((err) => {
+          setDisabledButton(false);
+        });
     }
     if (edit === false) {
-      const url = `http://apizp.iutjmc.com.ve/api/plan-evaluacion/`;
+      const url = `${process.env.REACT_APP_API_URL}/plan-evaluacion/`;
       Axios.post(
         url,
         { materia: materia, plan: plan },
@@ -88,9 +113,15 @@ const ModalPlanForm = (props) => {
             Authorization: jwt,
           },
         }
-      ).then((res) => {
-        getMateria();
-      });
+      )
+        .then((res) => {
+          setDisabledButton(false);
+          getMateria();
+          toggle();
+        })
+        .catch((err) => {
+          setDisabledButton(false);
+        });
     }
   };
 
@@ -131,6 +162,7 @@ const ModalPlanForm = (props) => {
                 type="number"
                 name="id_actividad"
                 id="id_actividad"
+                min="0"
                 placeholder=""
                 value={plan.id_actividad}
                 onChange={(e) => handle(e)}
@@ -145,7 +177,7 @@ const ModalPlanForm = (props) => {
                 type="text"
                 name="contenido"
                 id="contenido"
-                placeholder="Descipcion del contenido"
+                placeholder="Descripcion del contenido"
                 value={plan.contenido}
                 onChange={(e) => handle(e)}
               />
@@ -189,9 +221,10 @@ const ModalPlanForm = (props) => {
         <ModalFooter>
           <Button
             color="success"
-            onClick={toggle}
+            // onClick={toggle}
             form="planForm"
             type="submit"
+            disabled={disabledButton}
           >
             Guardar
           </Button>

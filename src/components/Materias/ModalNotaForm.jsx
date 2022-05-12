@@ -87,7 +87,7 @@ const ModalNotaForm = (props) => {
   const submit = (e) => {
     e.preventDefault();
     if (edit === true) {
-      const url = `http://apizp.iutjmc.com.ve/api/nota/`;
+      const url = `${process.env.REACT_APP_API_URL}/nota/`;
       Axios.put(
         url,
         {
@@ -105,7 +105,7 @@ const ModalNotaForm = (props) => {
       });
     }
     if (edit === false) {
-      const url = `http://apizp.iutjmc.com.ve/api/nota/`;
+      const url = `${process.env.REACT_APP_API_URL}/nota/`;
       Axios.post(
         url,
         {
@@ -175,8 +175,8 @@ const ModalNotaForm = (props) => {
                           <td key={`inputNota${indexNotas}`}>
                             <Input
                               type="number"
-                              name="contenido"
-                              id="contenido"
+                              name="nota"
+                              id="nota"
                               max="20"
                               min="0"
                               value={cal}

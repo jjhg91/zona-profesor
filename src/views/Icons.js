@@ -19,6 +19,9 @@
 import ModalPlanDelete from "components/Materias/ModalPlanDelete";
 import ModalPlanForm from "components/Materias/ModalPlanForm";
 import ModalNotaForm from "components/Materias/ModalNotaForm";
+import ButtonRegistroEvaluacion from "components/Materias/ButtonRegistroEvaluacion";
+import ButtonActaEvaluacion from "components/Materias/ButtonActaEvaluacion";
+
 import React, { useEffect, useState } from "react";
 import * as Axios from "axios";
 
@@ -45,7 +48,7 @@ function Icons() {
   const [ponderacionTotal, setPonderacionTotal] = useState(0);
 
   const getMateria = async () => {
-    const url = `http://apizp.iutjmc.com.ve/api/materia/${codEspecialidad}/${codMateria}/${codTurno}/${periodo}`;
+    const url = `${process.env.REACT_APP_API_URL}/materia/${codEspecialidad}/${codMateria}/${codTurno}/${periodo}`;
     await Axios.get(url, {
       headers: {
         Authorization: jwt,
@@ -92,6 +95,20 @@ function Icons() {
                         <strong>Periodo:</strong> {materia.periodo}
                       </span>
                     </p>
+                    <div>
+                      <ButtonRegistroEvaluacion
+                        especialidad={codEspecialidad}
+                        materia={codMateria}
+                        turno={codTurno}
+                        periodo={periodo}
+                      />
+                      <ButtonActaEvaluacion
+                        especialidad={codEspecialidad}
+                        materia={codMateria}
+                        turno={codTurno}
+                        periodo={periodo}
+                      />
+                    </div>
                   </>
                 )}
               </CardHeader>

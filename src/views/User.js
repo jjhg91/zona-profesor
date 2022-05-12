@@ -29,7 +29,7 @@ function User() {
   const [user, setUser] = useState();
 
   const getUser = async () => {
-    const url = "http://apizp.iutjmc.com.ve/api/profesor/";
+    const url = `${process.env.REACT_APP_API_URL}/profesor/`;
     await Axios.get(url, {
       headers: {
         Authorization: jwt,

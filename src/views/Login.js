@@ -52,7 +52,7 @@ const Login = () => {
 
   const submit = (e) => {
     e.preventDefault();
-    const url = `http://apizp.iutjmc.com.ve/api/login/auth`;
+    const url = `${process.env.REACT_APP_API_URL}/login/auth`;
     Axios.post(url, user).then((res) => {
       if (res.data) {
         login(res.data);
@@ -71,7 +71,9 @@ const Login = () => {
       <Col lg="5" md="7">
         <Card className="bg-secundary shadow border-0">
           <CardBody className="px-lg-5 py-lg-5">
-            <div className="text-center text-muted mb-4 font-weight-bold">INCIAR SECION</div>
+            <div className="text-center text-muted mb-4 font-weight-bold">
+              INCIAR SECION
+            </div>
             <Form role="form" onSubmit={(e) => submit(e)}>
               <FormGroup className="mb-3">
                 <InputGroup className="input-group-alternative">
