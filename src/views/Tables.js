@@ -68,6 +68,7 @@ function Tables() {
                       <th>Materia</th>
                       <th>Turno</th>
                       <th>Periodo</th>
+                      <th>Estatus</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -79,8 +80,21 @@ function Tables() {
                             <tr key={index}>
                               <td>{materia.especialidad}</td>
                               <td>{materia.nombre}</td>
-                              <td>{materia.turno}</td>
+                              <td>
+                                {materia.turno === "1" ? "Mañana" : "Sabado"}
+                              </td>
                               <td>{materia.periodo}</td>
+                              <td>
+                                {materia.cerrada === false ? (
+                                  <span className="bg-success p-2 text-white font-weight-bold">
+                                    Abierta
+                                  </span>
+                                ) : (
+                                  <span className="bg-danger p-2 text-white font-weight-bold">
+                                    Cerrada
+                                  </span>
+                                )}
+                              </td>
                               <td>
                                 <ButtonMateria materia={materia} />
                               </td>

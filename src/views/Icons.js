@@ -21,6 +21,7 @@ import ModalPlanForm from "components/Materias/ModalPlanForm";
 import ModalNotaForm from "components/Materias/ModalNotaForm";
 import ButtonRegistroEvaluacion from "components/Materias/ButtonRegistroEvaluacion";
 import ButtonActaEvaluacion from "components/Materias/ButtonActaEvaluacion";
+import ModalCloseMateria from "components/Materias/ModalCloseMateria";
 
 import React, { useEffect, useState } from "react";
 import * as Axios from "axios";
@@ -88,13 +89,20 @@ function Icons() {
                       </span>
                       <br />
                       <span>
-                        <strong>Turno:</strong> {materia.turno}
+                        <strong>Turno:</strong>{" "}
+                        {materia.turno === "1" ? "Mañana" : "Sabado"}
                       </span>
                       <br />
                       <span>
                         <strong>Periodo:</strong> {materia.periodo}
                       </span>
+                      <br />
+                      <span>
+                        <strong>Estatus: </strong>{" "}
+                        {materia["cerrada"] === false ? "Abierta" : "Cerrada"}
+                      </span>
                     </p>
+
                     <div>
                       <ButtonRegistroEvaluacion
                         especialidad={codEspecialidad}
@@ -108,6 +116,17 @@ function Icons() {
                         turno={codTurno}
                         periodo={periodo}
                       />
+                      {materia["cerrada"] === true ? (
+                        ""
+                      ) : (
+                        <ModalCloseMateria
+                          codEspecialidad={codEspecialidad}
+                          codMateria={codMateria}
+                          codTurno={codTurno}
+                          periodo={periodo}
+                          getMateria={getMateria}
+                        />
+                      )}
                     </div>
                   </>
                 )}
@@ -117,7 +136,8 @@ function Icons() {
                   <section id="plan">
                     <hr></hr>
                     <h6 className="">Plan de Evaluacion</h6>
-                    {ponderacionTotal >= 100 ? (
+                    {ponderacionTotal >= 100 ||
+                    (materia && materia["cerrada"] === true) ? (
                       ""
                     ) : (
                       <ModalPlanForm
@@ -150,19 +170,25 @@ function Icons() {
                                   <td>{plan.actividad}</td>
                                   <td>{plan.ponderacion}%</td>
                                   <td>
-                                    <ModalPlanForm
-                                      title="Edit"
-                                      edit={true}
-                                      plan={plan}
-                                      materia={materia}
-                                      getMateria={getMateria}
-                                      ponderacionTotal={ponderacionTotal}
-                                    />
-                                    <ModalPlanDelete
-                                      plan={plan}
-                                      materia={materia}
-                                      getMateria={getMateria}
-                                    />
+                                    {materia && materia["cerrada"] === true ? (
+                                      ""
+                                    ) : (
+                                      <>
+                                        <ModalPlanForm
+                                          title="Edit"
+                                          edit={true}
+                                          plan={plan}
+                                          materia={materia}
+                                          getMateria={getMateria}
+                                          ponderacionTotal={ponderacionTotal}
+                                        />
+                                        <ModalPlanDelete
+                                          plan={plan}
+                                          materia={materia}
+                                          getMateria={getMateria}
+                                        />
+                                      </>
+                                    )}
                                   </td>
                                 </tr>
                               );
@@ -291,15 +317,19 @@ function Icons() {
                                     {definitiva ? definitiva.toFixed(2) : "S/C"}
                                   </td>
                                   <td>
-                                    <ModalNotaForm
-                                      title="Edit"
-                                      edit={true}
-                                      materia={materia}
-                                      getMateria={getMateria}
-                                      planEvaluacion={planEvaluacion}
-                                      estudiantes={[estudiante]}
-                                      notas={notas}
-                                    />
+                                    {materia && materia["cerrada"] === true ? (
+                                      ""
+                                    ) : (
+                                      <ModalNotaForm
+                                        title="Edit"
+                                        edit={true}
+                                        materia={materia}
+                                        getMateria={getMateria}
+                                        planEvaluacion={planEvaluacion}
+                                        estudiantes={[estudiante]}
+                                        notas={notas}
+                                      />
+                                    )}
                                   </td>
                                 </tr>
                               );
