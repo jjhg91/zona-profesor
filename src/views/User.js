@@ -52,7 +52,7 @@ function User() {
               src={require("assets/img/damir-bosnjak.jpg").default}
             />
           </div>
-          <CardBody>
+          <CardBody className="">
             {!user ? (
               ""
             ) : (

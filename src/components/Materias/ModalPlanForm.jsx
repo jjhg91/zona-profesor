@@ -22,6 +22,7 @@ const ModalPlanForm = (props) => {
   const materia = props.materia;
   const getMateria = props.getMateria;
   const ponderacionTotal = props.ponderacionTotal;
+  const planEvaluacion = !props.planEvaluacion ? [] : props.planEvaluacion;
   const [ponderacionOriginal, setPonderacionOriginal] = useState();
   const [disabledButton, setDisabledButton] = useState(false);
   const [plan, setPlan] = useState({
@@ -40,7 +41,7 @@ const ModalPlanForm = (props) => {
 
   const toggle = () => {
     setModal(!modal);
-    if (edit == false) {
+    if (edit === false) {
       setPlan({
         id: "",
         especialidad: "",
@@ -156,7 +157,7 @@ const ModalPlanForm = (props) => {
         </ModalHeader>
         <ModalBody>
           <form onSubmit={(e) => submit(e)} id="planForm">
-            <FormGroup>
+            {/* <FormGroup>
               <Label for="exampleEmail">N° de Actividad</Label>
               <Input
                 type="number"
@@ -167,6 +168,33 @@ const ModalPlanForm = (props) => {
                 value={plan.id_actividad}
                 onChange={(e) => handle(e)}
               />
+              <FormText color="muted">
+                Este campo no puede estar vacio <small>(carac. 100 max)</small>
+              </FormText>
+            </FormGroup> */}
+            <FormGroup>
+              <label className="form-control-label" htmlFor="moneda">
+                N° de Actividad
+              </label>
+              <Input
+                className="form-control-alternative"
+                name="id_actividad"
+                id="id_actividad"
+                type="select"
+                onChange={(e) => handle(e)}
+                value={plan.id_actividad}
+              >
+                <option value="">Selecionar el N° de Actividad...</option>
+                {(()=>{
+                  let option = []
+                  for(var n = 1; n <= 6; n++){
+                    
+                    
+                    planEvaluacion.find(plan => plan.id_actividad == n) ? console.log('hola'): option.push(<option value={n+""}>{n}</option>)              
+                  }
+                  return option;
+                })()}
+              </Input>
               <FormText color="muted">
                 Este campo no puede estar vacio <small>(carac. 100 max)</small>
               </FormText>

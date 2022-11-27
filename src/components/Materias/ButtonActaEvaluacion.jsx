@@ -24,7 +24,7 @@ const ButtonActaEvaluacion = (props) => {
         const url = window.URL.createObjectURL(new Blob([res.data]));
         const link = document.createElement("a");
         link.href = url;
-        link.setAttribute("download", "registro-evaluacion.docx"); //or any other extension
+        link.setAttribute("download", "acta-evaluacion.docx"); //or any other extension
         document.body.appendChild(link);
         link.click();
         setDisableButton(false);

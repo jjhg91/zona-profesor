@@ -81,7 +81,7 @@ function Tables() {
                               <td>{materia.especialidad}</td>
                               <td>{materia.nombre}</td>
                               <td>
-                                {materia.turno === "1" ? "Mañana" : "Sabado"}
+                                {materia.turno === "1" ? "Mañana" : materia.turno === "5" ? "Sabado" : materia.turno === "6" ? "Online" : "Desconocido"}
                               </td>
                               <td>{materia.periodo}</td>
                               <td>

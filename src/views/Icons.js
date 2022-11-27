@@ -90,7 +90,8 @@ function Icons() {
                       <br />
                       <span>
                         <strong>Turno:</strong>{" "}
-                        {materia.turno === "1" ? "Mañana" : "Sabado"}
+                        {materia.turno === "1" ? "Mañana" : materia.turno === "5" ? "Sabado" : materia.turno === "6" ? "Online" : "Desconocido"}
+                        
                       </span>
                       <br />
                       <span>
@@ -146,6 +147,7 @@ function Icons() {
                         materia={materia}
                         getMateria={getMateria}
                         ponderacionTotal={ponderacionTotal}
+                        planEvaluacion={planEvaluacion}
                       />
                     )}
 
@@ -181,6 +183,7 @@ function Icons() {
                                           materia={materia}
                                           getMateria={getMateria}
                                           ponderacionTotal={ponderacionTotal}
+                                          planEvaluacion={planEvaluacion}
                                         />
                                         <ModalPlanDelete
                                           plan={plan}
