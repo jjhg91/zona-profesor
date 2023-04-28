@@ -3,20 +3,15 @@ version: "3.9"
 services:
   zona-profesor:
     container_name: zona-profesor
-    image: node:14-alpine
-    volumes:
-      - ./:/app:cached
-      - /app/node_modules/
-    working_dir: /app
-    ports:
-      - 3000:80
-    #expose:
-    #    - 80
-    #environment:
-    #    - VIRTUAL_HOST=zonaprofesor.iutjmc.com.ve
-    command: [sh, -c, "npm install && npm start"]
-    tty: true
+    build: .
+    expose:
+      - 80
+    environment:
+      - VIRTUAL_HOST=zonaprofesor.iutjmc.com.ve
+      #- VIRTUAL_PORT=80
+      #- LETSENCRYPT_HOST=iutjmc.com.ve
+      #- LETSENCRYPT_EMAIL=admin@iutjmc.com.ve
 
 networks:
   default:
-    name: nuevo_default
+    name: cloud_default
