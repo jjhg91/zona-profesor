@@ -17,7 +17,6 @@
 
 */
 import * as Axios from "axios";
-import ModalUser from "components/User/ModalUser";
 import useUser from "hooks/useUser";
 import React, { useEffect, useState } from "react";
 
@@ -38,7 +37,6 @@ function User() {
       setUser(res.data);
     });
   };
-
   useEffect(() => {
     getUser();
   }, []);
@@ -57,6 +55,12 @@ function User() {
               ""
             ) : (
               <>
+                {/* <ModalUser
+                  user={user}
+                  getUser={getUser}
+                  className="position-absolute top-100 end-100"
+                />
+                <ModalPassword /> */}
                 <div className="author">
                   <img
                     alt="..."
@@ -97,16 +101,6 @@ function User() {
               </>
             )}
           </CardBody>
-          <CardFooter>
-            <hr />
-            <div className="button-container">
-              <Row>
-                <Col className="m-auto" lg="12" md="12" xs="12">
-                  {/* <ModalUser /> */}
-                </Col>
-              </Row>
-            </div>
-          </CardFooter>
         </Card>
       </div>
     </>

@@ -10,10 +10,11 @@ const ButtonRegistroEvaluacion = (props) => {
   const turno = props.turno;
   const periodo = props.periodo;
   const [disabledButton, setDisableButton] = useState(false);
+  const id=props.id;
 
   const downloadDocument = (e) => {
     setDisableButton(true);
-    const url = `${process.env.REACT_APP_API_URL}/doc/registro-evaluacion/${especialidad}/${materia}/${turno}/${periodo}`;
+    const url = `${process.env.REACT_APP_API_URL}/doc/registro-evaluacion-super/${especialidad}/${materia}/${turno}/${periodo}/${id}`;
     Axios.get(url, {
       headers: {
         Authorization: jwt,

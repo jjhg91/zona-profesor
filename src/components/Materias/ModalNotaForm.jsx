@@ -76,7 +76,7 @@ const ModalNotaForm = (props) => {
         cal.notas[index].id_actividad[0] === actividad
       ) {
         cal.notas[index].nota =
-          e.target.value > 20 ? 20 : e.target.value < 0 ? 0 : e.target.value;
+          e.target.value > 20 ? 20 : e.target.value < -1 ? -1 : e.target.value;
       }
 
       return cal;
@@ -163,10 +163,14 @@ const ModalNotaForm = (props) => {
                       var defi = 0;
                       const tdNotas = planEvaluacion.map((plan, indexNotas) => {
                         if (calificacion && estudiante && plan) {
+                          let valorDefintivas=!calificacion[indexEst].notas[indexNotas]
+                          ? "0"
+                          :(calificacion[indexEst].notas[indexNotas].nota<1)?"0"
+                          : calificacion[indexEst].notas[indexNotas].nota;
                           var nn = !calificacion[indexEst].notas[indexNotas]
                             ? "0"
                             : calificacion[indexEst].notas[indexNotas].nota;
-                          defi = defi + (nn * plan.ponderacion) / 100;
+                          defi = defi + (valorDefintivas * plan.ponderacion) / 100;
                           var cal = nn;
                         } else {
                           var cal = "";
@@ -178,7 +182,7 @@ const ModalNotaForm = (props) => {
                               name="nota"
                               id="nota"
                               max="20"
-                              min="0"
+                              min="-1"
                               value={cal}
                               onChange={(e) =>
                                 handle(

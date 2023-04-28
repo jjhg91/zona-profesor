@@ -18,7 +18,7 @@
 */
 import React, { useState, useEffect } from "react";
 import * as Axios from "axios";
-
+import ModalOpenMateria from "components/Materias/ModalOpenMateria";
 // reactstrap components
 import {
   Card,
@@ -29,15 +29,13 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import ButtonMateria from "components/Materias/ButtonMateria";
 import useUser from "hooks/useUser";
-
-function Tables() {
+function TableApert() {
   const { jwt } = useUser();
   const [materias, setMaterias] = useState();
 
   const getMaterias = async () => {
-    const url = `${process.env.REACT_APP_API_URL}/materia/`;
+    const url = `${process.env.REACT_APP_API_URL}/materia/getAll/`;
     await Axios.get(url, {
       headers: {
         Authorization: jwt,
@@ -50,7 +48,6 @@ function Tables() {
   useEffect(() => {
     getMaterias();
   }, []);
-
   return (
     <>
       <div className="content">
@@ -58,7 +55,7 @@ function Tables() {
           <Col md="12">
             <Card>
               <CardHeader>
-                <CardTitle tag="h4">Materias Asignadas</CardTitle>
+                <CardTitle tag="h4">Descarga De Planillas De todos los Cursos</CardTitle>
               </CardHeader>
               <CardBody>
                 <Table responsive className="table-hover table-striped">
@@ -77,7 +74,7 @@ function Tables() {
                       ? ""
                       : materias.map((materia, index) => {
                           return (
-                            <tr key={index}>
+                            (materia.cerrada)?(<tr key={index}>
                               <td>{materia.especialidad}</td>
                               <td>{(materia.codMateria=="TBC330")?materia.nombre+" I":(materia.codMateria=="TBC440")?materia.nombre+" II":(materia.codMateria=="TBC540")?materia.nombre+" III":materia.nombre}</td>
                               <td>
@@ -96,9 +93,17 @@ function Tables() {
                                 )}
                               </td>
                               <td>
-                                <ButtonMateria materia={materia} />
+                                <ModalOpenMateria
+                                  codEspecialidad={materia.codEspecialidad}
+                                  codMateria={materia.codMateria}
+                                  codTurno={materia.turno}
+                                  periodo={materia.periodo}
+                                  id={materia.creditos}
+                                  getMaterias={getMaterias}
+                                />
                               </td>
-                            </tr>
+                            </tr>):""
+                            
                           );
                         })}
                   </tbody>
@@ -111,5 +116,4 @@ function Tables() {
     </>
   );
 }
-
-export default Tables;
+export default TableApert;

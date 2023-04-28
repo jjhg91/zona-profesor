@@ -47,7 +47,8 @@ function Icons() {
   const [estudiantes, setEstudiantes] = useState();
   const [notas, setNotas] = useState();
   const [ponderacionTotal, setPonderacionTotal] = useState(0);
-
+  const [estudiantesCorregidosAll, setEstudiantesCorregidosAll] = useState(true);
+  const [cantidadEvaluaciones, setCantidadEvaluaciones] = useState(0);
   const getMateria = async () => {
     const url = `${process.env.REACT_APP_API_URL}/materia/${codEspecialidad}/${codMateria}/${codTurno}/${periodo}`;
     await Axios.get(url, {
@@ -62,8 +63,29 @@ function Icons() {
           return total + parseInt(plan.ponderacion);
         }, 0)
       );
+      let contadorDeEvaluaciones=res.data.planesEvaluacion.reduce((sumaTotal, plan) => {
+        return sumaTotal + 1;
+      }, 0);
+      setCantidadEvaluaciones(contadorDeEvaluaciones)
       setEstudiantes(res.data.estudiantes);
       setNotas(res.data.notas);
+      for (let index = 0; index < res.data.estudiantes.length; index++) {
+        const alumno =res.data.estudiantes[index];
+        let evaluacionesCorregidasAlumno=0;
+        for (let x = 0; x < res.data.notas.length; x++) {
+          const calificacion = res.data.notas[x];
+          if(alumno["cedula"][0]===calificacion["cedula"][0]){
+            evaluacionesCorregidasAlumno++;
+          } 
+        }
+        console.log(contadorDeEvaluaciones)
+        if(evaluacionesCorregidasAlumno!=contadorDeEvaluaciones){
+          setEstudiantesCorregidosAll(false);
+          console.log(estudiantesCorregidosAll);
+          break;
+        }
+      }
+
     });
   };
 
@@ -83,6 +105,7 @@ function Icons() {
                 ) : (
                   <>
                     <CardTitle tag="h5">{materia.nombre}</CardTitle>
+                    <CardTitle tag="h5">Para poder Cargar las notas primero debe agregar todas las actividades y que estas sumen 100%</CardTitle>
                     <p className="card-category">
                       <span>
                         <strong>Especialidad:</strong> {materia.especialidad}
@@ -117,7 +140,7 @@ function Icons() {
                         turno={codTurno}
                         periodo={periodo}
                       />
-                      {materia["cerrada"] === true ? (
+                      {((materia["cerrada"] === true) || (estudiantesCorregidosAll==false)) ? (
                         ""
                       ) : (
                         <ModalCloseMateria
@@ -220,7 +243,11 @@ function Icons() {
                     <h6>Estudiantes</h6>
                     {!notas ? (
                       ""
-                    ) : notas.length === 0 ? (
+                    ):(ponderacionTotal!==100)?(
+                      <h6 className="">Recuerda Que debes Colocar todas las actividades que den la suma del 100% para poder cargar las notas a tus alumnos.
+                      </h6>
+                    )
+                     : (notas.length === 0 && ponderacionTotal===100) ? (
                       <ModalNotaForm
                         title="Cargar Notas"
                         edit={false}
@@ -258,7 +285,8 @@ function Icons() {
                           : estudiantes.map((estudiante, index) => {
                               const tdNotas = [];
                               var definitiva = null;
-
+                              var inasistencias=0;
+                              var noPresentadas=0;
                               planEvaluacion.forEach((plan, index) => {
                                 const bb = notas.find((nota) => {
                                   return (
@@ -269,11 +297,22 @@ function Icons() {
                                 });
                                 if (bb) {
                                   tdNotas.push(
-                                    <td key={`nota${index}`}>{bb.nota}</td>
+                                    (bb.nota==0)?<td key={`nota${index}`}>NP</td>
+                                    :(bb.nota==-1)?<td key={`nota${index}`}>I</td>
+                                    :<td key={`nota${index}`}>{bb.nota}</td>
                                   );
-                                  definitiva =
+                                  let notaTA=bb.nota;
+                                  if(notaTA==-1){
+                                    notaTA="0";
+                                    inasistencias++;
+                                  }
+                                  else if(notaTA==0){
+                                    notaTA="0";
+                                    noPresentadas++;
+                                  }
+                                          definitiva =
                                     definitiva +
-                                    (bb.nota * plan.ponderacion) / 100;
+                                    (notaTA * plan.ponderacion) / 100;
                                 } else {
                                   tdNotas.push(
                                     <td key={`nota${index}`}>S/C</td>
@@ -304,7 +343,6 @@ function Icons() {
                               //     }
                               //   }
                               // });
-
                               return (
                                 <tr key={`estudiante${index}`}>
                                   <td>
@@ -317,12 +355,12 @@ function Icons() {
                                   {tdNotas}
 
                                   <td>
-                                    {definitiva ? definitiva.toFixed(2) : "S/C"}
+                                    {(cantidadEvaluaciones==inasistencias)?"I":(cantidadEvaluaciones==noPresentadas)?"01":(definitiva && definitiva.toFixed(2)>=1) ? definitiva.toFixed(2) : "01"}
                                   </td>
                                   <td>
                                     {materia && materia["cerrada"] === true ? (
                                       ""
-                                    ) : (
+                                    ) :(ponderacionTotal===100)? (
                                       <ModalNotaForm
                                         title="Edit"
                                         edit={true}
@@ -332,7 +370,7 @@ function Icons() {
                                         estudiantes={[estudiante]}
                                         notas={notas}
                                       />
-                                    )}
+                                    ):""}
                                   </td>
                                 </tr>
                               );

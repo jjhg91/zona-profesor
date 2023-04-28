@@ -18,7 +18,8 @@
 */
 import React, { useState, useEffect } from "react";
 import * as Axios from "axios";
-
+import ButtonRegistroEvaluacion from "components/Materias/ButtonRegistroMateria";
+import ButtonActaEvaluacion from "components/Materias/ButtonActaMateria";
 // reactstrap components
 import {
   Card,
@@ -29,15 +30,13 @@ import {
   Row,
   Col,
 } from "reactstrap";
-import ButtonMateria from "components/Materias/ButtonMateria";
 import useUser from "hooks/useUser";
-
-function Tables() {
+function TableAll() {
   const { jwt } = useUser();
   const [materias, setMaterias] = useState();
 
   const getMaterias = async () => {
-    const url = `${process.env.REACT_APP_API_URL}/materia/`;
+    const url = `${process.env.REACT_APP_API_URL}/materia/getAll/`;
     await Axios.get(url, {
       headers: {
         Authorization: jwt,
@@ -50,7 +49,6 @@ function Tables() {
   useEffect(() => {
     getMaterias();
   }, []);
-
   return (
     <>
       <div className="content">
@@ -58,7 +56,7 @@ function Tables() {
           <Col md="12">
             <Card>
               <CardHeader>
-                <CardTitle tag="h4">Materias Asignadas</CardTitle>
+                <CardTitle tag="h4">Descarga De Planillas De todos los Cursos</CardTitle>
               </CardHeader>
               <CardBody>
                 <Table responsive className="table-hover table-striped">
@@ -69,7 +67,8 @@ function Tables() {
                       <th>Turno</th>
                       <th>Periodo</th>
                       <th>Estatus</th>
-                      <th></th>
+                      <th>Registro Evaluaciones</th>
+                      <th>Acta de Evaluacion</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -96,7 +95,22 @@ function Tables() {
                                 )}
                               </td>
                               <td>
-                                <ButtonMateria materia={materia} />
+                                <ButtonRegistroEvaluacion
+                                  especialidad={materia.codEspecialidad}
+                                  materia={materia.codMateria}
+                                  turno={materia.turno}
+                                  periodo={materia.periodo}
+                                  id={materia.creditos}
+                                />
+                                </td>
+                              <td>
+                                <ButtonActaEvaluacion
+                                  especialidad={materia.codEspecialidad}
+                                  materia={materia.codMateria}
+                                  turno={materia.turno}
+                                  periodo={materia.periodo}
+                                  id={materia.creditos}
+                                />
                               </td>
                             </tr>
                           );
@@ -111,5 +125,4 @@ function Tables() {
     </>
   );
 }
-
-export default Tables;
+export default TableAll;

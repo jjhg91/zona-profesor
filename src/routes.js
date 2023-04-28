@@ -19,54 +19,79 @@
 import Dashboard from "views/Dashboard.js";
 import Icons from "views/Icons.js";
 import TableList from "views/Tables.js";
+import TableAll from "views/TableAll.js";
+import TableApert from "views/TableApert.js";
 import UserPage from "views/User.js";
+import ChangeData from "views/ChangeUserData.js";
 
 import Login from "views/Login";
 
-var routes = [
-  {
-    path: "/inicio",
-    name: "Inicio",
-    icon: "nc-icon nc-bank",
-    component: Dashboard,
-    layout: "/admin",
-    visible: true,
-  },
-  {
-    path: "/usuario",
-    name: "Perfil de Usuario",
-    icon: "nc-icon nc-single-02",
-    component: UserPage,
-    layout: "/admin",
-    visible: true,
-  },
-  {
-    path: "/materias",
-    name: "Materias",
-    icon: "nc-icon nc-book-bookmark",
-    component: TableList,
-    layout: "/admin",
-    visible: true,
-  },
-  {
-    path: "/materia/:codEspecialidad/:codMateria/:codTurno/:periodo",
-    name: "Materia",
-    icon: "nc-icon nc-book-bookmark",
-    component: Icons,
-    layout: "/admin",
-    visible: false,
-  },
+var routes = [{
+        path: "/inicio",
+        name: "Inicio",
+        icon: "nc-icon nc-bank",
+        component: Dashboard,
+        layout: "/admin",
+        visible: true,
+    },
+    {
+        path: "/usuario",
+        name: "Perfil de Usuario",
+        icon: "nc-icon nc-single-02",
+        component: UserPage,
+        layout: "/admin",
+        visible: true,
+    }, {
+        path: "/CambiarDatos",
+        name: "Cambiar Contrasena",
+        icon: "nc-icon nc-single-02",
+        component: ChangeData,
+        layout: "/admin",
+        visible: true,
+    },
+    {
+        path: "/materias",
+        name: "Materias",
+        icon: "nc-icon nc-book-bookmark",
+        component: TableList,
+        layout: "/admin",
+        visible: true,
+    },
+    {
+        path: "/materia/:codEspecialidad/:codMateria/:codTurno/:periodo",
+        name: "Materia",
+        icon: "nc-icon nc-book-bookmark",
+        component: Icons,
+        layout: "/admin",
+        visible: false,
+    },
+    {
+        path: "/SacarPlanillas",
+        name: "Planillas y Actas de Todos Los Cursos",
+        icon: "nc-icon nc-book-bookmark",
+        component: TableAll,
+        layout: "/admin",
+        visible: false,
+    },
+    {
+        path: "/AperturaDeMaterias",
+        name: "Re-Abrir Materias",
+        icon: "nc-icon nc-book-bookmark",
+        component: TableApert,
+        layout: "/admin",
+        visible: false,
+    },
 
-  /**
-   * ROUTE LOGIN WITHOUT AUTHORICE
-   */
-  {
-    path: "/login",
-    name: "Login",
-    icon: "ni ni-key-25 text-info",
-    component: Login,
-    layout: "/auth",
-    nav: true,
-  },
+    /**
+     * ROUTE LOGIN WITHOUT AUTHORICE
+     */
+    {
+        path: "/login",
+        name: "Login",
+        icon: "ni ni-key-25 text-info",
+        component: Login,
+        layout: "/auth",
+        nav: true,
+    },
 ];
 export default routes;
