@@ -25,10 +25,10 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  //Dropdown,
-  //DropdownToggle,
-  //DropdownMenu,
-  //DropdownItem,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
   Container,
 } from "reactstrap";
 
@@ -39,7 +39,7 @@ function Header(props) {
   const { logout, isLogged, jwt } = useUser();
 
   const [isOpen, setIsOpen] = React.useState(false);
-  //const [dropdownOpen, setDropdownOpen] = React.useState(false);
+  const [dropdownOpen, setDropdownOpen] = React.useState(false);
   const [color, setColor] = React.useState("transparent");
   const sidebarToggle = React.useRef();
   const location = useLocation();
@@ -51,9 +51,9 @@ function Header(props) {
     }
     setIsOpen(!isOpen);
   };
-  //const dropdownToggle = (e) => {
-  //  setDropdownOpen(!dropdownOpen);
- // };
+  const dropdownToggle = (e) => {
+    setDropdownOpen(!dropdownOpen);
+  };
   const getBrand = () => {
     let brandName = "Default Brand";
     routes.map((prop, key) => {
@@ -164,7 +164,7 @@ function Header(props) {
                 </p>
               </Link>
             </NavItem> */}
-           {/* <Dropdown
+           <Dropdown
               nav
               isOpen={dropdownOpen}
               toggle={(e) => dropdownToggle(e)}
@@ -181,10 +181,10 @@ function Header(props) {
                   <p className="ml-3">Salir</p>
                 </DropdownItem>
 
-                 <DropdownItem tag="a">Another Action</DropdownItem>
-                <DropdownItem tag="a">Something else here</DropdownItem> 
+                 {/* <DropdownItem tag="a">Another Action</DropdownItem>
+                <DropdownItem tag="a">Something else here</DropdownItem> */}
               </DropdownMenu>
-            </Dropdown>*/}
+            </Dropdown>
             {/* <NavItem>
               <Link to="#pablo" className="nav-link btn-rotate">
                 <i className="nc-icon nc-settings-gear-65" />
