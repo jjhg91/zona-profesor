@@ -164,27 +164,27 @@ function Header(props) {
                 </p>
               </Link>
             </NavItem> */}
-            //<Dropdown
-            //  nav
-            //  isOpen={dropdownOpen}
-            //  toggle={(e) => dropdownToggle(e)}
-            //>
-             // <DropdownToggle caret nav>
-             //   <i className="nc-icon nc-settings-gear-65" />
-             //   <p>
-             //     <span className="d-lg-none d-md-block">Some Actions</span>
-             //   </p>
-             // </DropdownToggle>
-             // <DropdownMenu right>
-             //   <DropdownItem tag="a" onClick={(e) => singOut(e)}>
-             //     <i className="nc-icon nc-button-power" />
-             //     <p className="ml-3">Salir</p>
-             //   </DropdownItem>
+           {/* <Dropdown
+              nav
+              isOpen={dropdownOpen}
+              toggle={(e) => dropdownToggle(e)}
+            >
+              <DropdownToggle caret nav>
+                <i className="nc-icon nc-settings-gear-65" />
+                <p>
+                  <span className="d-lg-none d-md-block">Some Actions</span>
+                </p>
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem tag="a" onClick={(e) => singOut(e)}>
+                  <i className="nc-icon nc-button-power" />
+                  <p className="ml-3">Salir</p>
+                </DropdownItem>
 
-                {/* <DropdownItem tag="a">Another Action</DropdownItem>
-                <DropdownItem tag="a">Something else here</DropdownItem> */}
-             // </DropdownMenu>
-            //</Dropdown>
+                 <DropdownItem tag="a">Another Action</DropdownItem>
+                <DropdownItem tag="a">Something else here</DropdownItem> 
+              </DropdownMenu>
+            </Dropdown>*/}
             {/* <NavItem>
               <Link to="#pablo" className="nav-link btn-rotate">
                 <i className="nc-icon nc-settings-gear-65" />
