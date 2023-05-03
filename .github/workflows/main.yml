@@ -11,42 +11,42 @@ concurrency:
 
 jobs:
 
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v3
-        with:
-          cache: 'npm'
-          node-version: 14
-      - name: Install dependencies
-        run: npm ci --ignore-scripts
-      - name: rebuild 
-        run: npm rebuild node-sass
-      - name: Build
-        run: npm run build
-      - uses: actions/upload-artifact@v3
-        with:
-          name: dist
-          path: |
-            build
-            Dockerfile
-            docker-compose-deploy.yml
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0
+#       - uses: actions/setup-node@v3
+#         with:
+#           cache: 'npm'
+#           node-version: 14
+#       - name: Install dependencies
+#         run: npm ci --ignore-scripts
+#       - name: rebuild 
+#         run: npm rebuild node-sass
+#       - name: Build
+#         run: npm run build
+#       - uses: actions/upload-artifact@v3
+#         with:
+#           name: dist
+#           path: |
+#             build
+#             Dockerfile
+#             docker-compose-deploy.yml
   deploy:
-    needs: build
+#     needs: build
     runs-on: self-hosted
     steps:
-      #- uses: actions/checkout@v3
-      - name: limpiando path deploy
-        run: rm -rf *
-      - uses: actions/download-artifact@v3
-        with:
-          name: dist
-      - name: que hay aqui
-        run: ls -la 
+      - uses: actions/checkout@v3
+#       - name: limpiando path deploy
+#         run: rm -rf *
+#       - uses: actions/download-artifact@v3
+#         with:
+#           name: dist
+#       - name: que hay aqui
+#         run: ls -la 
       - name: ejecutar el compose
         run: docker-compose -f docker-compose.yml up -d --build
-      - name: limpiando file deploy
-        run: rm -rf *
+#       - name: limpiando file deploy
+#         run: rm -rf *
