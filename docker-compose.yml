@@ -12,10 +12,10 @@ services:
             - 80
         networks: 
             - default
-        command: [sh,-c,"npm install && npm start"]
-        tty: true
         environment:
             - VIRTUAL_HOST=zonaprofesor.iutjmc.com.ve
+        command: [sh,-c,"npm install && npm start"]
+        tty: true
 
 
 networks: 
