@@ -20,4 +20,4 @@ services:
 
 networks: 
   default:
-      name: nuevo_default 
+      name: cloud_default 
