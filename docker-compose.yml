@@ -8,10 +8,12 @@ services:
             - ./:/app:cached
             - /app/node_modules/
         working_dir: /app
-        port:
+        expose:
             - 80:3000
         command: [sh,-c,"npm install && npm start"]
         tty: true
+        environment:
+            - VIRTUAL_HOST=zonaprofesor.iutjmc.com.ve
 
 
 networks: 
