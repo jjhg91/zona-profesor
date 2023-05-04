@@ -6,6 +6,8 @@ services:
     build: .
     expose:
       - 80
+    networks:
+      - default
     environment:
       - VIRTUAL_HOST=zonaprofesor.iutjmc.com.ve
       #- VIRTUAL_PORT=80
