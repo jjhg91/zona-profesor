@@ -50,6 +50,4 @@ jobs:
         run: docker-compose -f docker-compose-deploy.yml up -d --build
       - name: limpiando file deploy
         run: rm -rf *
-      - name: limpiando file deploy
-        run: rm -rf \.*
 
